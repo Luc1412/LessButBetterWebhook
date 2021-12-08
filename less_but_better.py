@@ -1,5 +1,7 @@
 import json
+import sys
 import time
+import traceback
 
 import bs4
 import requests
@@ -57,9 +59,16 @@ if __name__ == '__main__':
     while True:
         with open('data.json', 'r') as f:
             old_data = json.load(f)
-        kbd_fans_data = get_kbd_fans_updates()
-        kono_data = get_kono_availability()
-        daily_clack_data = get_daily_clack_availability()
+        try:
+            kbd_fans_data = get_kbd_fans_updates()
+            kono_data = get_kono_availability()
+            daily_clack_data = get_daily_clack_availability()
+        except Exception:
+            err = "".join(traceback.format_exception(*sys.exc_info()))
+            print(err)
+            send_webhook_update(discord.Embed(colour=discord.Color.dark_red(), description=err))
+            time.sleep(30 * 60)
+            continue
 
         if old_data['kbdfans'] != kbd_fans_data:
             old_data['kbdfans'] = kbd_fans_data
