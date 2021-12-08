@@ -57,6 +57,7 @@ def send_webhook_update(embed):
 
 if __name__ == '__main__':
     while True:
+        print('Check Less but Better availability...')
         with open('data.json', 'r') as f:
             old_data = json.load(f)
         try:
@@ -96,4 +97,5 @@ if __name__ == '__main__':
 
         with open('data.json', 'w') as f:
             json.dump(old_data, f)
+        print('Finished checking Less but Better availability.')
         time.sleep(60 * 60)
