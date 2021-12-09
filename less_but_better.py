@@ -91,7 +91,7 @@ if __name__ == '__main__':
             old_data['daily_clack'] = daily_clack_data
             embed = discord.Embed(color=discord.Color.red())
             embed.set_author(name='Daily Clack Availability', url='https://dailyclack.com/products/epbt-less-but-better')
-            for name, value in kono_data.items():
+            for name, value in daily_clack_data.items():
                 embed.add_field(name=name, value=':white_check_mark:' if value else ':x:')
             send_webhook_update(embed)
 
